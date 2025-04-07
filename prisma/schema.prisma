@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String        @id @default(uuid())
+  userName          String
+  emailAddr         String?       @unique
+  phoneNumber       String?       @unique
+  score             Int           @default(0)
+  isPioneer         Boolean       @default(false)
+  isEarlyRecruiter  Boolean       @default(false)
+  isFirstRecruiter  Boolean       @default(false)
+  isGuildMember     Boolean       @default(false)
+  password          String?
+
+  created_at        DateTime
+  updated_at        DateTime      @default(now())
+
+  @@unique([emailAddr, phoneNumber])
+}
